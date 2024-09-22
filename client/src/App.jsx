@@ -18,6 +18,7 @@ function App() {
           body: JSON.stringify(parsedInput),
         }
       );
+
       const data = await res.json();
       setResponse(data);
       setError(null);
