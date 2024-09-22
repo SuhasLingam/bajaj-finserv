@@ -10,11 +10,14 @@ function App() {
   const handleSubmit = async () => {
     try {
       const parsedInput = JSON.parse(jsonInput);
-      const res = await fetch("http://localhost:3000/bfhl", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsedInput),
-      });
+      const res = await fetch(
+        "https://bajaj-finserv-rho-peach.vercel.app/bfhl",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(parsedInput),
+        }
+      );
       const data = await res.json();
       setResponse(data);
       setError(null);
@@ -50,14 +53,14 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-700 text-white p-8">
-      <h1 className="text-4xl font-bold mb-6">
+    <div className="bg-slate-700 flex flex-col items-center justify-center min-h-screen p-8 text-white">
+      <h1 className="mb-6 text-4xl font-bold">
         {response ? "Response Details" : "Bajaj Fiserv Health Task 1"}
       </h1>
 
-      <div className="backdrop-blur-lg bg-white bg-opacity-10 rounded-xl shadow-md p-6 w-full max-w-xl">
+      <div className="backdrop-blur-lg bg-opacity-10 rounded-xl w-full max-w-xl p-6 bg-white shadow-md">
         <textarea
-          className="w-full p-4 bg-transparent border border-white rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-green-300 mb-4"
+          className="focus:outline-none focus:ring-2 focus:ring-green-300 w-full p-4 mb-4 text-white placeholder-gray-300 bg-transparent border border-white rounded-lg"
           rows="5"
           value={jsonInput}
           onChange={(e) => setJsonInput(e.target.value)}
@@ -65,12 +68,12 @@ function App() {
         />
         <button
           onClick={handleSubmit}
-          className="w-full py-3 bg-green-500 rounded-lg text-white font-semibold hover:bg-green-600 transition-all duration-300"
+          className="hover:bg-green-600 w-full py-3 font-semibold text-white transition-all duration-300 bg-green-500 rounded-lg"
         >
           Process Data
         </button>
 
-        {error && <div className="text-red-500 mt-4 text-center">{error}</div>}
+        {error && <div className="mt-4 text-center text-red-500">{error}</div>}
 
         {response && (
           <div className="mt-6">
@@ -80,7 +83,7 @@ function App() {
             <select
               multiple={true}
               onChange={handleFilterChange}
-              className="w-full mt-4 p-2 bg-transparent border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-300"
+              className="focus:outline-none focus:ring-2 focus:ring-green-300 w-full p-2 mt-4 text-white bg-transparent border border-white rounded-lg"
             >
               <option value="Alphabets">Alphabets</option>
               <option value="Numbers">Numbers</option>
@@ -93,7 +96,7 @@ function App() {
               {filteredResponse().map((item) => (
                 <div
                   key={item.label}
-                  className="p-3 bg-white bg-opacity-20 rounded-lg backdrop-blur-md shadow-lg"
+                  className="bg-opacity-20 backdrop-blur-md p-3 bg-white rounded-lg shadow-lg"
                 >
                   <strong className="text-lg font-semibold">
                     {item.label}:{" "}
